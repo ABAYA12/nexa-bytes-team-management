@@ -3,6 +3,480 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Member Card | Nexa Bytes</title>
+    <style>
+        :root {
+            /* Modern Tech Color Scheme */
+            --primary: #2B3A67;
+            --secondary: #4A6FA5;
+            --accent: #38B2AC;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --highlight: #F6AD55;
+            --gradient-start: #4A6FA5;
+            --gradient-end: #38B2AC;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light) 0%, #E2E8F0 100%);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+        }
+
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 1.8rem;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            clip-path: ellipse(75% 100% at 50% 0%);
+        }
+
+        .logo {
+            width: 90px;
+            height: auto;
+            margin-bottom: 0.8rem;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .card-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .card-body {
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+        }
+
+        .member-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background-color: var(--light);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            color: var(--secondary);
+            grid-row: span 3;
+            border: 6px solid white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(45deg, var(--light), white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-photo::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            opacity: 0.2;
+            border-radius: 50%;
+        }
+
+        .member-info {
+            grid-column: 2;
+        }
+
+        .info-group {
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .info-group::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            border-radius: 2px;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .barcode-container {
+            grid-column: span 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.8rem;
+            border-top: 1px dashed #E2E8F0;
+            position: relative;
+        }
+
+        .barcode-container::before,
+        .barcode-container::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--light);
+        }
+
+        .barcode-container::before {
+            left: 0;
+        }
+
+        .barcode-container::after {
+            right: 0;
+        }
+
+        .barcode {
+            width: 260px;
+            height: 80px;
+            background-color: white;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.2rem;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .barcode-id {
+            position: absolute;
+            bottom: 5px;
+            font-size: 0.8rem;
+            color: var(--dark);
+            letter-spacing: 1px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .barcode-label {
+            font-size: 1rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            background-color: var(--light);
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--dark);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .actions {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.8rem;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(70, 143, 175, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(70, 143, 175, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(70, 143, 175, 0.4);
+        }
+
+        .btn.print {
+            background: linear-gradient(45deg, var(--primary), #3D5A80);
+        }
+
+        .btn.edit {
+            background: linear-gradient(45deg, #5E60CE, #7400B8);
+        }
+
+        .btn-icon {
+            margin-right: 0.7rem;
+            font-size: 1.2rem;
+        }
+
+        /* Simple barcode styling */
+        .barcode-lines {
+            display: flex;
+            height: 50px;
+            width: 200px;
+            align-items: center;
+        }
+
+        .barcode-line {
+            height: 100%;
+            width: 2px;
+            margin: 0 1px;
+            background-color: #000;
+        }
+
+        .barcode-line.tall {
+            height: 100%;
+        }
+
+        .barcode-line.medium {
+            height: 75%;
+        }
+
+        .barcode-line.short {
+            height: 50%;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                padding: 0;
+            }
+            
+            .actions {
+                display: none;
+            }
+            
+            .card {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                height: 100vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .member-photo {
+                grid-row: auto;
+                grid-column: 1;
+                margin-bottom: 1.8rem;
+            }
+            
+            .member-info {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header">
+                <img src="/api/placeholder/90/90" alt="Nexa Bytes Logo" class="logo">
+                <h2 class="card-title">Nexa Bytes</h2>
+                <p class="card-subtitle">Member Identification Card</p>
+            </div>
+            
+            <div class="card-body">
+                <div class="member-photo" id="memberInitials">JD</div>
+                
+                <div class="member-info">
+                    <div class="info-group">
+                        <div class="info-label">Full Name</div>
+                        <h3 class="info-value" id="fullName">John Doe</h3>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Employee ID</div>
+                        <p class="info-value" id="employeeId">NBX-0012</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Role</div>
+                        <p class="info-value" id="role">Senior Developer</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Department</div>
+                        <p class="info-value" id="department">Technology</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Start Date</div>
+                        <p class="info-value" id="startDate">January 15, 2023</p>
+                    </div>
+                </div>
+                
+                <div class="barcode-container">
+                    <p class="barcode-label">Member Verification</p>
+                    <div class="barcode">
+                        <div class="barcode-lines" id="barcodeLines"></div>
+                        <div class="barcode-id" id="barcodeId">NBX-0012</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                This card is the property of Nexa Bytes. If found, please contact HR department.
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button class="btn print" onclick="window.print()">
+                <span class="btn-icon">🖨️</span> Print Card
+            </button>
+            <a href="form.html" class="btn edit">
+                <span class="btn-icon">✏️</span> Edit Information
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate member initials
+            const fullName = document.getElementById('fullName').textContent;
+            const nameParts = fullName.split(' ');
+            let initials = '';
+            if (nameParts.length >= 2) {
+                initials = nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0);
+            } else if (nameParts.length === 1) {
+                initials = nameParts[0].charAt(0);
+            }
+            
+            // Update member initials
+            document.getElementById('memberInitials').textContent = initials.toUpperCase();
+            
+            // Get employee ID for barcode
+            const employeeId = document.getElementById('employeeId').textContent;
+            document.getElementById('barcodeId').textContent = employeeId;
+            
+            // Generate barcode lines
+            const barcodeLines = document.getElementById('barcodeLines');
+            const lineCount = 40;
+            
+            for (let i = 0; i < lineCount; i++) {
+                const line = document.createElement('div');
+                line.className = 'barcode-line';
+                
+                // Create random height pattern for barcode lines
+                const heightClass = Math.random();
+                if (heightClass < 0.3) {
+                    line.classList.add('tall');
+                } else if (heightClass < 0.6) {
+                    line.classList.add('medium');
+                } else {
+                    line.classList.add('short');
+                }
+                
+                // Create random thickness
+                line.style.width = (Math.floor(Math.random() * 3) + 1) + 'px';
+                
+                barcodeLines.appendChild(line);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+so can you write fully both files now to solve the problem finally: 
+
+this are the original files: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Information Form | Nexa Bytes</title>
     <style>
         :root {
@@ -611,7 +1085,57 @@
             </div>
         </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/form.js"></script>
+
+    <script src="js/form.js" defer></script>
 </body>
 </html>
+
+
+import { supabase } from './config.js';
+
+// Generate employee ID immediately when script loads
+function generateEmployeeId() {
+    return 'NBX-' + Math.floor(1000 + Math.random() * 9000);
+}
+
+// Set the ID as soon as possible
+const employeeId = generateEmployeeId();
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set the generated ID in the form field
+    const employeeIdField = document.getElementById('employeeId');
+    if (employeeIdField) {
+        employeeIdField.value = employeeId;
+        console.log('Employee ID set:', employeeId);
+    } else {
+        console.error('Employee ID field not found!');
+    }
+
+    // Rest of your form setup...
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('startDate').value = today;
+
+    const form = document.getElementById('memberForm');
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Use the pre-generated employeeId
+        const formData = {
+            employee_id: employeeId, // ← Using the same generated ID
+            // ... rest of your form data
+        };
+
+        // Submit to Supabase
+        const { data, error } = await supabase
+            .from('team_members')
+            .insert([formData]);
+
+        if (error) {
+            console.error('Error:', error);
+            alert('Submission failed: ' + error.message);
+        } else {
+            localStorage.setItem('memberData', JSON.stringify(data[0]));
+            window.location.href = 'card.html';
+        }
+    });
+});
