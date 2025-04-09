@@ -1,80 +1,94 @@
-import { supabase } from './config.js';
+import { supabase } from 'supabase/config.js'; // Adjust path if config.js is elsewhere
 
-// Generate a unique employee ID
+// Function to generate employee ID
 function generateEmployeeId() {
-    return 'NBX-' + Math.floor(1000 + Math.random() * 9000);
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    return `NBX-${randomNum}`;
 }
 
-// Initialize form functionality
-function initForm() {
-    // Generate and set employee ID
-    const employeeId = generateEmployeeId();
+// Generate ID immediately and store it
+const employeeId = generateEmployeeId();
+console.log('Generated Employee ID:', employeeId);
+
+// Function to initialize the form
+function initializeForm() {
+    console.log('Initializing form...');
+
+    // Set Employee ID
     const employeeIdField = document.getElementById('employeeId');
-    
     if (employeeIdField) {
         employeeIdField.value = employeeId;
-        console.log('Employee ID generated:', employeeId);
+        console.log('Employee ID set in input:', employeeId);
     } else {
-        console.error('Employee ID field not found');
-        return; // Exit if critical field missing
+        console.error('Employee ID field not found in DOM!');
     }
 
     // Set today's date as start date
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('startDate').value = today;
+    const startDateField = document.getElementById('startDate');
+    if (startDateField) {
+        startDateField.value = today;
+        console.log('Start date set:', today);
+    } else {
+        console.error('Start date field not found in DOM!');
+    }
 
-    // Handle form submission
+    // Form submission
     const form = document.getElementById('memberForm');
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
+    if (form) {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            console.log('Form submitted, collecting data...');
 
-        // Collect all form data
-        const formData = {
-            employee_id: employeeId, // Using the pre-generated ID
-            first_name: document.getElementById('firstName').value.trim(),
-            last_name: document.getElementById('lastName').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            phone_number: document.getElementById('phone').value.trim(),
-            gender: document.getElementById('gender').value,
-            dob: document.getElementById('dob').value,
-            role: document.getElementById('role').value.trim(),
-            department: document.getElementById('department').value,
-            start_date: document.getElementById('startDate').value,
-            github: document.getElementById('github')?.value.trim() || null,
-            linkedin: document.getElementById('linkedin')?.value.trim() || null,
-            bio: document.getElementById('bio')?.value.trim() || null
-        };
+            const formData = {
+                employee_id: employeeId, // Use the pre-generated ID
+                first_name: document.getElementById('firstName').value,
+                last_name: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone_number: document.getElementById('phone').value,
+                gender: document.getElementById('gender').value,
+                dob: document.getElementById('dob').value,
+                role: document.getElementById('role').value,
+                department: document.getElementById('department').value,
+                start_date: document.getElementById('startDate').value,
+                github: document.getElementById('github').value,
+                linkedin: document.getElementById('linkedin').value,
+                bio: document.getElementById('bio').value,
+            };
 
-        // Validate required fields
-        if (!formData.first_name || !formData.last_name || !formData.email) {
-            alert('Please fill in all required fields');
-            return;
-        }
+            console.log('Form data to submit:', formData);
 
-        try {
-            // Submit to Supabase
-            const { data, error } = await supabase
-                .from('team_members')
-                .insert([formData])
-                .select();
+            try {
+                const { data, error } = await supabase
+                    .from('team_members')
+                    .insert([formData]);
 
-            if (error) throw error;
-
-            // Store data and redirect on success
-            localStorage.setItem('memberData', JSON.stringify(data[0]));
-            window.location.href = 'card.html';
-            
-        } catch (error) {
-            console.error('Submission error:', error);
-            alert(`Submission failed: ${error.message}`);
-        }
-    });
+                if (error) {
+                    console.error('Supabase insert error:', error.message);
+                    alert('❌ Submission failed: ' + error.message);
+                } else {
+                    console.log('✅ Data inserted successfully:', data);
+                    localStorage.setItem('memberData', JSON.stringify(data[0]));
+                    window.location.href = 'card.html';
+                }
+            } catch (err) {
+                console.error('Unexpected error during submission:', err);
+                alert('❌ An unexpected error occurred. Please try again.');
+            }
+        });
+    } else {
+        console.error('Form element not found in DOM!');
+    }
 }
 
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', initForm);
+// Run initialization when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded, running initialization...');
+    initializeForm();
+});
 
-// Fallback: If DOM is already loaded when script runs
+// Fallback: Try to set employee ID immediately if DOM is already loaded
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(initForm, 100);
+    console.log('DOM already loaded, running fallback initialization...');
+    initializeForm();
 }

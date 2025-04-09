@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/form.js" type="module"></script>
-
     <title>Member Information Form | Nexa Bytes</title>
     <style>
         :root {
@@ -275,7 +273,6 @@
             display: block;
         }
 
-        /* Field Icons */
         .form-group {
             position: relative;
         }
@@ -296,7 +293,6 @@
             color: var(--secondary);
         }
 
-        /* Section Icons */
         .section-icon {
             display: inline-block;
             width: 30px;
@@ -310,7 +306,6 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Form Sections with different background colors */
         .form-section {
             padding: 1.5rem;
             border-radius: 16px;
@@ -338,7 +333,6 @@
             border-top: 4px solid var(--accent);
         }
 
-        /* Animation for the form */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -356,7 +350,6 @@
             animation-delay: 0.4s;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .form-grid {
                 grid-template-columns: 1fr;
@@ -378,7 +371,6 @@
             }
         }
 
-        /* Progress indicator */
         .progress-container {
             display: flex;
             justify-content: center;
@@ -436,11 +428,6 @@
             font-weight: bold;
         }
 
-        /* Floating labels effect */
-        .input-group {
-            position: relative;
-        }
-
         .dots-bg {
             position: fixed;
             top: 0;
@@ -495,7 +482,6 @@
 
             <div class="form-section" id="personal-section">
                 <h3 class="section-title"><span class="section-icon">👤</span>Personal Information</h3>
-                
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="firstName" class="required">First Name</label>
@@ -503,28 +489,24 @@
                         <span class="form-icon">📝</span>
                         <div class="error-message">Please enter your first name</div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="lastName" class="required">Last Name</label>
                         <input type="text" id="lastName" required>
                         <span class="form-icon">📝</span>
                         <div class="error-message">Please enter your last name</div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="email" class="required">Email</label>
                         <input type="email" id="email" required>
                         <span class="form-icon">✉️</span>
                         <div class="error-message">Please enter a valid email</div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="phone" class="required">Phone Number</label>
                         <input type="tel" id="phone" required>
                         <span class="form-icon">📞</span>
                         <div class="error-message">Please enter your phone number</div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="gender" class="required">Gender</label>
                         <select id="gender" required>
@@ -537,7 +519,6 @@
                         <span class="form-icon">👥</span>
                         <div class="error-message">Please select your gender</div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="dob" class="required">Date of Birth</label>
                         <input type="date" id="dob" required>
@@ -549,7 +530,6 @@
             
             <div class="form-section" id="professional-section">
                 <h3 class="section-title"><span class="section-icon">💼</span>Professional Information</h3>
-                
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="role" class="required">Role</label>
@@ -557,7 +537,6 @@
                         <span class="form-icon">👔</span>
                         <div class="error-message">Please enter your role</div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="department" class="required">Department</label>
                         <select id="department" required>
@@ -573,7 +552,6 @@
                         <span class="form-icon">🏢</span>
                         <div class="error-message">Please select your department</div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="startDate" class="required">Start Date</label>
                         <input type="date" id="startDate" required>
@@ -585,21 +563,18 @@
             
             <div class="form-section" id="additional-section">
                 <h3 class="section-title"><span class="section-icon">➕</span>Additional Information</h3>
-                
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="github">GitHub Username</label>
                         <input type="text" id="github">
                         <span class="form-icon">💻</span>
                     </div>
-                    
                     <div class="form-group">
                         <label for="linkedin">LinkedIn Profile</label>
                         <input type="url" id="linkedin">
                         <span class="form-icon">🔗</span>
                         <div class="error-message">Please enter a valid URL</div>
                     </div>
-                    
                     <div class="form-group full-width">
                         <label for="bio">Bio</label>
                         <textarea id="bio" rows="4"></textarea>
@@ -614,6 +589,6 @@
         </form>
     </div>
 
-    <script src="js/form.js" defer></script>
+    <script type="module" src="js/form.js"></script>
 </body>
 </html>
