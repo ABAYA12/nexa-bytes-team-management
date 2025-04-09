@@ -6,17 +6,19 @@
     <title>Nexa Bytes - Member Portal</title>
     <style>
         :root {
-            --primary: #1B263B;
-            --secondary: #468FAF;
-            --accent: #7CB518;
-            --light: #F5F5F5;
-            --dark: #222222;
-            --highlight: #FF9F1C;
+            --primary: #6200EA;
+            --secondary: #00B0FF;
+            --accent: #00E676;
+            --light: #F5F9FF;
+            --dark: #1A1A2E;
+            --highlight: #FF4081;
+            --tertiary: #FFC107;
+            --quaternary: #9C27B0;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--light) 0%, #E2E8F0 100%);
+            background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -25,41 +27,77 @@
             align-items: center;
             justify-content: center;
             color: var(--dark);
-            background-image: radial-gradient(circle at 25% 25%, rgba(70, 143, 175, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(255, 64, 129, 0.4);
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(0, 176, 255, 0.3);
+            bottom: 10%;
+            right: 5%;
+        }
+
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            background-color: rgba(0, 230, 118, 0.2);
+            top: 30%;
+            right: -50px;
         }
 
         .container {
             text-align: center;
             max-width: 800px;
-            padding: 2rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin: 2rem 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .logo {
             width: 180px;
             height: auto;
             margin-bottom: 1.5rem;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
         h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--quaternary), var(--highlight));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         p {
             color: var(--dark);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -67,24 +105,25 @@
 
         .btn {
             display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--quaternary));
             color: white;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             text-decoration: none;
             border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(70, 143, 175, 0.4);
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(98, 0, 234, 0.4);
             position: relative;
             overflow: hidden;
             border: none;
             cursor: pointer;
+            z-index: 1;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(70, 143, 175, 0.6);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(98, 0, 234, 0.6);
         }
 
         .btn:active {
@@ -98,10 +137,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, var(--accent), var(--highlight));
+            background: linear-gradient(45deg, var(--highlight), var(--secondary));
             opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
+            transition: opacity 0.4s ease;
+            z-index: -1;
         }
 
         .btn:hover::after {
@@ -113,6 +152,219 @@
             z-index: 2;
         }
 
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+            100% { transform: translateY(0) rotate(0); }
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-top: 4rem;
+        }
+
+        .feature {
+            background: linear-gradient(145deg, white, #f8f9ff);
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            width: 200px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border-top: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature:nth-child(1) { border-top-color: var(--primary); }
+        .feature:nth-child(2) { border-top-color: var(--secondary); }
+        .feature:nth-child(3) { border-top-color: var(--accent); }
+        .feature:nth-child(4) { border-top-color: var(--highlight); }
+
+        .feature:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(98, 0, 234, 0.03), rgba(255, 64, 129, 0.03));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            display: inline-block;
+            padding: 1rem;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature:nth-child(1) .feature-icon { color: var(--primary); }
+        .feature:nth-child(2) .feature-icon { color: var(--secondary); }
+        .feature:nth-child(3) .feature-icon { color: var(--accent); }
+        .feature:nth-child(4) .feature-icon { color: var(--highlight); }
+
+        .feature h3 {
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .feature p {
+            font-size: 1rem;
+            margin-bottom: 0;
+            color: #555;
+        }
+
+        footer {
+            width: 100%;
+            background-color: rgba(26, 26, 46, 0.95);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 5px solid var(--highlight);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .footer-section h4 {
+            color: var(--tertiary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 50px;
+            background: linear-gradient(to right, var(--secondary), var(--tertiary));
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--tertiary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background-color: var(--tertiary);
+            color: var(--dark);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-section {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .footer-section h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        .dots-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -120,48 +372,16 @@
         }
 
         .btn {
-            animation: pulse 2s infinite;
-        }
-
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .feature {
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            width: 200px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-
-        .feature h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .feature p {
-            font-size: 0.9rem;
-            margin-bottom: 0;
+            animation: pulse 3s infinite;
         }
     </style>
 </head>
 <body>
+    <div class="dots-bg"></div>
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-circle circle-3"></div>
+    
     <div class="container">
         <img src="assets/logo.png" alt="Nexa Bytes Logo" class="logo">
         <h1>Welcome to Nexa Bytes</h1>
@@ -191,5 +411,47 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Nexa Bytes</h4>
+                <p style="color: #bbb; font-size: 0.9rem; line-height: 1.5;">We're dedicated to connecting team members through innovative technology solutions.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Member Dashboard</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li style="color: #bbb;">Email: support@nexabytes.com</li>
+                    <li style="color: #bbb;">Phone: (555) 123-4567</li>
+                    <li style="color: #bbb;">Address: 123 Tech Lane, Innovation City</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <span class="social-icon">f</span>
+                    <span class="social-icon">in</span>
+                    <span class="social-icon">tw</span>
+                    <span class="social-icon">ig</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2025 Nexa Bytes. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

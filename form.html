@@ -6,65 +6,122 @@
     <title>Member Information Form | Nexa Bytes</title>
     <style>
         :root {
-            --primary: #1B263B;
-            --secondary: #468FAF;
-            --accent: #7CB518;
-            --light: #F5F5F5;
-            --dark: #222222;
-            --highlight: #FF9F1C;
-            --error: #E71D36;
-            --success: #2EC4B6;
+            --primary: #6200EA;
+            --secondary: #00B0FF;
+            --accent: #00E676;
+            --light: #F5F9FF;
+            --dark: #1A1A2E;
+            --highlight: #FF4081;
+            --tertiary: #FFC107;
+            --quaternary: #9C27B0;
+            --error: #FF3D00;
+            --success: #00C853;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--light) 0%, #E2E8F0 100%);
+            background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
             margin: 0;
             padding: 2rem;
             min-height: 100vh;
             color: var(--dark);
+            position: relative;
+        }
+
+        .decoration-circle {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(255, 64, 129, 0.4);
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(0, 176, 255, 0.3);
+            bottom: 10%;
+            right: 5%;
+        }
+
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            background-color: rgba(0, 230, 118, 0.2);
+            top: 30%;
+            right: -50px;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.97);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(to right, var(--highlight), var(--secondary));
+            border-radius: 2px;
         }
 
         .logo {
             width: 120px;
             height: auto;
             margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
         }
 
         h1 {
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary), var(--quaternary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
         }
 
         .subtitle {
-            color: var(--secondary);
-            font-size: 1rem;
+            color: #555;
+            font-size: 1.1rem;
             margin-bottom: 1.5rem;
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 1.8rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
         }
 
         .form-group.full-width {
@@ -73,82 +130,137 @@
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.7rem;
             font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        label:hover {
             color: var(--primary);
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.9rem 1rem;
             border: 2px solid #E2E8F0;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 1rem;
             transition: all 0.3s ease;
+            background-color: #FAFBFF;
+            color: var(--dark);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(70, 143, 175, 0.2);
+            box-shadow: 0 0 0 4px rgba(0, 176, 255, 0.2);
+            background-color: white;
         }
 
         .employee-id {
-            background-color: #F8F9FA;
+            background-color: #F0F4FF;
             font-weight: bold;
             color: var(--primary);
+            border-left: 4px solid var(--primary);
         }
 
         .required::after {
             content: ' *';
-            color: var(--error);
+            color: var(--highlight);
+            font-size: 1.2em;
         }
 
         .btn {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--quaternary));
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 50px;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(70, 143, 175, 0.3);
+            box-shadow: 0 8px 20px rgba(98, 0, 234, 0.35);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(70, 143, 175, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(98, 0, 234, 0.45);
         }
 
         .btn:active {
             transform: translateY(0);
         }
 
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--highlight), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
         .btn-container {
             grid-column: span 2;
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 2rem;
         }
 
         .section-title {
             grid-column: span 2;
             color: var(--primary);
-            font-size: 1.2rem;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--light);
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #E6EFFD;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+        }
+
+        .section-title:nth-of-type(1)::before {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .section-title:nth-of-type(2)::before {
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+        }
+
+        .section-title:nth-of-type(3)::before {
+            background: linear-gradient(to right, var(--accent), var(--tertiary));
         }
 
         .error-message {
             color: var(--error);
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
             display: none;
+            padding-left: 0.5rem;
+            border-left: 2px solid var(--error);
         }
 
         input:invalid, select:invalid, textarea:invalid {
@@ -161,134 +273,341 @@
             display: block;
         }
 
+        /* Field Icons */
+        .form-group {
+            position: relative;
+        }
+
+        .form-icon {
+            position: absolute;
+            top: 2.8rem;
+            right: 1rem;
+            color: #AAB7C4;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        input:focus ~ .form-icon,
+        select:focus ~ .form-icon,
+        textarea:focus ~ .form-icon {
+            color: var(--secondary);
+        }
+
+        /* Section Icons */
+        .section-icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: var(--light);
+            color: var(--primary);
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Sections with different background colors */
+        .form-section {
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .form-section:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transform: translateY(-5px);
+        }
+
+        #personal-section {
+            border-top: 4px solid var(--primary);
+        }
+
+        #professional-section {
+            border-top: 4px solid var(--secondary);
+        }
+
+        #additional-section {
+            border-top: 4px solid var(--accent);
+        }
+
+        /* Animation for the form */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-section {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        #professional-section {
+            animation-delay: 0.2s;
+        }
+
+        #additional-section {
+            animation-delay: 0.4s;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .form-grid {
                 grid-template-columns: 1fr;
+                gap: 1.2rem;
             }
             
-            .form-group.full-width {
-                grid-column: span 1;
-            }
-            
-            .btn-container {
-                grid-column: span 1;
-            }
-            
+            .form-group.full-width,
+            .btn-container,
             .section-title {
                 grid-column: span 1;
             }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+        }
+
+        /* Progress indicator */
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+            position: relative;
+        }
+
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #E2E8F0;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #E2E8F0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .step-active .step-number {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .step-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+        }
+
+        .step-active .step-label {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Floating labels effect */
+        .input-group {
+            position: relative;
+        }
+
+        .dots-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
+    <div class="dots-bg"></div>
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-circle circle-3"></div>
+    
     <div class="container">
         <div class="header">
             <img src="assets/logo.png" alt="Nexa Bytes Logo" class="logo">
             <h1>Member Information Form</h1>
-            <p class="subtitle">Please fill in your details to generate your member card</p>
+            <p class="subtitle">Please fill in your details to generate your personalized member card</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-step step-active">
+                <div class="step-number">1</div>
+                <div class="step-label">Information</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">2</div>
+                <div class="step-label">Review</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">3</div>
+                <div class="step-label">Complete</div>
+            </div>
         </div>
 
         <form id="memberForm">
-            <div class="form-grid">
-                <div class="form-group full-width">
-                    <label for="employeeId" class="required">Your Employee ID</label>
-                    <input type="text" id="employeeId" class="employee-id" readonly>
+            <div class="form-section" id="id-section">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="employeeId" class="required">Your Employee ID</label>
+                        <input type="text" id="employeeId" class="employee-id" readonly>
+                        <span class="form-icon">🆔</span>
+                    </div>
                 </div>
+            </div>
 
-                <h3 class="section-title">Personal Information</h3>
+            <div class="form-section" id="personal-section">
+                <h3 class="section-title"><span class="section-icon">👤</span>Personal Information</h3>
                 
-                <div class="form-group">
-                    <label for="firstName" class="required">First Name</label>
-                    <input type="text" id="firstName" required>
-                    <div class="error-message">Please enter your first name</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName" class="required">First Name</label>
+                        <input type="text" id="firstName" required>
+                        <span class="form-icon">📝</span>
+                        <div class="error-message">Please enter your first name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName" class="required">Last Name</label>
+                        <input type="text" id="lastName" required>
+                        <span class="form-icon">📝</span>
+                        <div class="error-message">Please enter your last name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="required">Email</label>
+                        <input type="email" id="email" required>
+                        <span class="form-icon">✉️</span>
+                        <div class="error-message">Please enter a valid email</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="required">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                        <span class="form-icon">📞</span>
+                        <div class="error-message">Please enter your phone number</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender" class="required">Gender</label>
+                        <select id="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                        <span class="form-icon">👥</span>
+                        <div class="error-message">Please select your gender</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dob" class="required">Date of Birth</label>
+                        <input type="date" id="dob" required>
+                        <span class="form-icon">🎂</span>
+                        <div class="error-message">Please enter your date of birth</div>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="form-section" id="professional-section">
+                <h3 class="section-title"><span class="section-icon">💼</span>Professional Information</h3>
                 
-                <div class="form-group">
-                    <label for="lastName" class="required">Last Name</label>
-                    <input type="text" id="lastName" required>
-                    <div class="error-message">Please enter your last name</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="role" class="required">Role</label>
+                        <input type="text" id="role" required>
+                        <span class="form-icon">👔</span>
+                        <div class="error-message">Please enter your role</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department" class="required">Department</label>
+                        <select id="department" required>
+                            <option value="">Select Department</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Design">Design</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Operations">Operations</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span class="form-icon">🏢</span>
+                        <div class="error-message">Please select your department</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="startDate" class="required">Start Date</label>
+                        <input type="date" id="startDate" required>
+                        <span class="form-icon">📅</span>
+                        <div class="error-message">Please enter your start date</div>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="form-section" id="additional-section">
+                <h3 class="section-title"><span class="section-icon">➕</span>Additional Information</h3>
                 
-                <div class="form-group">
-                    <label for="email" class="required">Email</label>
-                    <input type="email" id="email" required>
-                    <div class="error-message">Please enter a valid email</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="github">GitHub Username</label>
+                        <input type="text" id="github">
+                        <span class="form-icon">💻</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn Profile</label>
+                        <input type="url" id="linkedin">
+                        <span class="form-icon">🔗</span>
+                        <div class="error-message">Please enter a valid URL</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" rows="4"></textarea>
+                        <span class="form-icon">📝</span>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="phone" class="required">Phone Number</label>
-                    <input type="tel" id="phone" required>
-                    <div class="error-message">Please enter your phone number</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="gender" class="required">Gender</label>
-                    <select id="gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                        <option value="Prefer not to say">Prefer not to say</option>
-                    </select>
-                    <div class="error-message">Please select your gender</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="dob" class="required">Date of Birth</label>
-                    <input type="date" id="dob" required>
-                    <div class="error-message">Please enter your date of birth</div>
-                </div>
-                
-                <h3 class="section-title">Professional Information</h3>
-                
-                <div class="form-group">
-                    <label for="role" class="required">Role</label>
-                    <input type="text" id="role" required>
-                    <div class="error-message">Please enter your role</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="department" class="required">Department</label>
-                    <select id="department" required>
-                        <option value="">Select Department</option>
-                        <option value="Technology">Technology</option>
-                        <option value="Design">Design</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Operations">Operations</option>
-                        <option value="Human Resources">Human Resources</option>
-                        <option value="Finance">Finance</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <div class="error-message">Please select your department</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="startDate" class="required">Start Date</label>
-                    <input type="date" id="startDate" required>
-                    <div class="error-message">Please enter your start date</div>
-                </div>
-                
-                <h3 class="section-title">Additional Information</h3>
-                
-                <div class="form-group">
-                    <label for="github">GitHub Username</label>
-                    <input type="text" id="github">
-                </div>
-                
-                <div class="form-group">
-                    <label for="linkedin">LinkedIn Profile</label>
-                    <input type="url" id="linkedin">
-                    <div class="error-message">Please enter a valid URL</div>
-                </div>
-                
-                <div class="form-group full-width">
-                    <label for="bio">Bio</label>
-                    <textarea id="bio" rows="4"></textarea>
-                </div>
-                
-                <div class="btn-container">
-                    <button type="submit" class="btn">Submit Information</button>
-                </div>
+            </div>
+            
+            <div class="btn-container">
+                <button type="submit" class="btn">Submit Information</button>
             </div>
         </form>
     </div>

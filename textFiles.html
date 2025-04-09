@@ -172,7 +172,7 @@
             margin: 0;
         }
 
-        .qr-container {
+        .barcode-container {
             grid-column: span 2;
             display: flex;
             flex-direction: column;
@@ -183,8 +183,8 @@
             position: relative;
         }
 
-        .qr-container::before,
-        .qr-container::after {
+        .barcode-container::before,
+        .barcode-container::after {
             content: '';
             position: absolute;
             top: -5px;
@@ -194,17 +194,17 @@
             background-color: var(--light);
         }
 
-        .qr-container::before {
+        .barcode-container::before {
             left: 0;
         }
 
-        .qr-container::after {
+        .barcode-container::after {
             right: 0;
         }
 
-        .qr-code {
-            width: 160px;
-            height: 160px;
+        .barcode {
+            width: 260px;
+            height: 80px;
             background-color: white;
             padding: 12px;
             border-radius: 12px;
@@ -214,9 +214,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        .qr-label {
+        .barcode-id {
+            position: absolute;
+            bottom: 5px;
+            font-size: 0.8rem;
+            color: var(--dark);
+            letter-spacing: 1px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .barcode-label {
             font-size: 1rem;
             color: var(--secondary);
             text-align: center;
@@ -280,6 +292,33 @@
             font-size: 1.2rem;
         }
 
+        /* Simple barcode styling */
+        .barcode-lines {
+            display: flex;
+            height: 50px;
+            width: 200px;
+            align-items: center;
+        }
+
+        .barcode-line {
+            height: 100%;
+            width: 2px;
+            margin: 0 1px;
+            background-color: #000;
+        }
+
+        .barcode-line.tall {
+            height: 100%;
+        }
+
+        .barcode-line.medium {
+            height: 75%;
+        }
+
+        .barcode-line.short {
+            height: 50%;
+        }
+
         @media print {
             body {
                 background: white !important;
@@ -319,7 +358,7 @@
     <div class="card-container">
         <div class="card">
             <div class="card-header">
-                <img src="assets/logo.png" alt="Nexa Bytes Logo" class="logo">
+                <img src="/api/placeholder/90/90" alt="Nexa Bytes Logo" class="logo">
                 <h2 class="card-title">Nexa Bytes</h2>
                 <p class="card-subtitle">Member Identification Card</p>
             </div>
@@ -354,9 +393,12 @@
                     </div>
                 </div>
                 
-                <div class="qr-container">
-                    <p class="qr-label">Scan this QR code to verify membership</p>
-                    <div class="qr-code" id="qrCode"></div>
+                <div class="barcode-container">
+                    <p class="barcode-label">Member Verification</p>
+                    <div class="barcode">
+                        <div class="barcode-lines" id="barcodeLines"></div>
+                        <div class="barcode-id" id="barcodeId">NBX-0012</div>
+                    </div>
                 </div>
             </div>
             
@@ -375,7 +417,49 @@
         </div>
     </div>
 
-    <script src="js/qrcode.min.js"></script>
-    <script src="js/card.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate member initials
+            const fullName = document.getElementById('fullName').textContent;
+            const nameParts = fullName.split(' ');
+            let initials = '';
+            if (nameParts.length >= 2) {
+                initials = nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0);
+            } else if (nameParts.length === 1) {
+                initials = nameParts[0].charAt(0);
+            }
+            
+            // Update member initials
+            document.getElementById('memberInitials').textContent = initials.toUpperCase();
+            
+            // Get employee ID for barcode
+            const employeeId = document.getElementById('employeeId').textContent;
+            document.getElementById('barcodeId').textContent = employeeId;
+            
+            // Generate barcode lines
+            const barcodeLines = document.getElementById('barcodeLines');
+            const lineCount = 40;
+            
+            for (let i = 0; i < lineCount; i++) {
+                const line = document.createElement('div');
+                line.className = 'barcode-line';
+                
+                // Create random height pattern for barcode lines
+                const heightClass = Math.random();
+                if (heightClass < 0.3) {
+                    line.classList.add('tall');
+                } else if (heightClass < 0.6) {
+                    line.classList.add('medium');
+                } else {
+                    line.classList.add('short');
+                }
+                
+                // Create random thickness
+                line.style.width = (Math.floor(Math.random() * 3) + 1) + 'px';
+                
+                barcodeLines.appendChild(line);
+            }
+        });
+    </script>
 </body>
 </html>
