@@ -1,48 +1,80 @@
-import { supabase } from './config.js'; // adjust path if needed
+import { supabase } from './config.js';
 
-document.addEventListener('DOMContentLoaded', function () {
-    // ✅ Generate employee ID (NBX-XXXX)
-    const generatedId = 'NBX-' + Math.floor(1000 + Math.random() * 9000);
-    document.getElementById('employeeId').value = generatedId;
+// Generate a unique employee ID
+function generateEmployeeId() {
+    return 'NBX-' + Math.floor(1000 + Math.random() * 9000);
+}
 
-    // ✅ Set today's date as start date
+// Initialize form functionality
+function initForm() {
+    // Generate and set employee ID
+    const employeeId = generateEmployeeId();
+    const employeeIdField = document.getElementById('employeeId');
+    
+    if (employeeIdField) {
+        employeeIdField.value = employeeId;
+        console.log('Employee ID generated:', employeeId);
+    } else {
+        console.error('Employee ID field not found');
+        return; // Exit if critical field missing
+    }
+
+    // Set today's date as start date
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('startDate').value = today;
 
-    // ✅ Form submission
+    // Handle form submission
     const form = document.getElementById('memberForm');
-    form.addEventListener('submit', async function (e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // Collect form data
+        // Collect all form data
         const formData = {
-            employee_id: document.getElementById('employeeId').value,
-            first_name: document.getElementById('firstName').value,
-            last_name: document.getElementById('lastName').value,
-            email: document.getElementById('email').value,
-            phone_number: document.getElementById('phone').value,
+            employee_id: employeeId, // Using the pre-generated ID
+            first_name: document.getElementById('firstName').value.trim(),
+            last_name: document.getElementById('lastName').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone_number: document.getElementById('phone').value.trim(),
             gender: document.getElementById('gender').value,
             dob: document.getElementById('dob').value,
-            role: document.getElementById('role').value,
+            role: document.getElementById('role').value.trim(),
             department: document.getElementById('department').value,
             start_date: document.getElementById('startDate').value,
-            github: document.getElementById('github').value,
-            linkedin: document.getElementById('linkedin').value,
-            bio: document.getElementById('bio').value,
+            github: document.getElementById('github')?.value.trim() || null,
+            linkedin: document.getElementById('linkedin')?.value.trim() || null,
+            bio: document.getElementById('bio')?.value.trim() || null
         };
 
-        // ✅ Send to Supabase
-        const { data, error } = await supabase
-            .from('team_members')
-            .insert([formData]);
+        // Validate required fields
+        if (!formData.first_name || !formData.last_name || !formData.email) {
+            alert('Please fill in all required fields');
+            return;
+        }
 
-        if (error) {
-            console.error('Insert error:', error.message);
-            alert('❌ Failed to submit: ' + error.message);
-        } else {
-            console.log('✅ Data inserted:', data);
+        try {
+            // Submit to Supabase
+            const { data, error } = await supabase
+                .from('team_members')
+                .insert([formData])
+                .select();
+
+            if (error) throw error;
+
+            // Store data and redirect on success
             localStorage.setItem('memberData', JSON.stringify(data[0]));
             window.location.href = 'card.html';
+            
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert(`Submission failed: ${error.message}`);
         }
     });
-});
+}
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', initForm);
+
+// Fallback: If DOM is already loaded when script runs
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(initForm, 100);
+}
