@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Member Card | Nexa Bytes</title>
+    <style>
+        :root {
+            --primary: #1B263B;
+            --secondary: #468FAF;
+            --accent: #7CB518;
+            --light: #F5F5F5;
+            --dark: #222222;
+            --highlight: #FF9F1C;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light) 0%, #E2E8F0 100%);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+        }
+
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            clip-path: ellipse(75% 100% at 50% 0%);
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .card-body {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--light);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--secondary);
+            grid-row: span 3;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(45deg, var(--light), white);
+        }
+
+        .member-info {
+            grid-column: 2;
+        }
+
+        .info-group {
+            margin-bottom: 1rem;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .qr-container {
+            grid-column: span 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed #E2E8F0;
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            border: 1px solid #E2E8F0;
+        }
+
+        .qr-label {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-footer {
+            background-color: var(--light);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--dark);
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(70, 143, 175, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(70, 143, 175, 0.4);
+        }
+
+        .btn.print {
+            background: linear-gradient(45deg, var(--primary), #3A506B);
+        }
+
+        .btn.edit {
+            background: linear-gradient(45deg, #6A4C93, #8A5A44);
+        }
+
+        .btn-icon {
+            margin-right: 0.5rem;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                padding: 0;
+            }
+            
+            .actions {
+                display: none;
+            }
+            
+            .card {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                height: 100vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .member-photo {
+                grid-row: auto;
+                grid-column: 1;
+                margin-bottom: 1.5rem;
+            }
+            
+            .member-info {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header">
+                <img src="assets/logo.png" alt="Nexa Bytes Logo" class="logo">
+                <h2 class="card-title">Nexa Bytes</h2>
+                <p class="card-subtitle">Member Identification Card</p>
+            </div>
+            
+            <div class="card-body">
+                <div class="member-photo" id="memberInitials">JD</div>
+                
+                <div class="member-info">
+                    <div class="info-group">
+                        <div class="info-label">Full Name</div>
+                        <h3 class="info-value" id="fullName">John Doe</h3>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Employee ID</div>
+                        <p class="info-value" id="employeeId">NBX-0012</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Role</div>
+                        <p class="info-value" id="role">Senior Developer</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Department</div>
+                        <p class="info-value" id="department">Technology</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Start Date</div>
+                        <p class="info-value" id="startDate">January 15, 2023</p>
+                    </div>
+                </div>
+                
+                <div class="qr-container">
+                    <p class="qr-label">Scan this QR code to verify membership</p>
+                    <div class="qr-code" id="qrCode"></div>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                This card is the property of Nexa Bytes. If found, please contact HR department.
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button class="btn print" onclick="window.print()">
+                <span class="btn-icon">🖨️</span> Print Card
+            </button>
+            <a href="form.html" class="btn edit">
+                <span class="btn-icon">✏️</span> Edit Information
+            </a>
+        </div>
+    </div>
+
+    <script src="js/qrcode.min.js"></script>
+    <script src="js/card.js"></script>
+</body>
+</html>
