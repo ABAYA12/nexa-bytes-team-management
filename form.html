@@ -6,21 +6,21 @@
     <title>Member Information Form | Nexa Bytes</title>
     <style>
         :root {
-            --primary: #6200EA;
-            --secondary: #00B0FF;
-            --accent: #00E676;
-            --light: #F5F9FF;
-            --dark: #1A1A2E;
-            --highlight: #FF4081;
-            --tertiary: #FFC107;
-            --quaternary: #9C27B0;
-            --error: #FF3D00;
-            --success: #00C853;
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #2980b9;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --highlight: #1abc9c;
+            --tertiary: #34495e;
+            --quaternary: #2c3e50;
+            --error: #e74c3c;
+            --success: #27ae60;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
             margin: 0;
             padding: 2rem;
             min-height: 100vh;
@@ -38,7 +38,7 @@
         .circle-1 {
             width: 300px;
             height: 300px;
-            background-color: rgba(255, 64, 129, 0.4);
+            background-color: rgba(52, 152, 219, 0.1);
             top: -100px;
             left: -100px;
         }
@@ -46,7 +46,7 @@
         .circle-2 {
             width: 200px;
             height: 200px;
-            background-color: rgba(0, 176, 255, 0.3);
+            background-color: rgba(26, 188, 156, 0.1);
             bottom: 10%;
             right: 5%;
         }
@@ -54,7 +54,7 @@
         .circle-3 {
             width: 150px;
             height: 150px;
-            background-color: rgba(0, 230, 118, 0.2);
+            background-color: rgba(44, 62, 80, 0.1);
             top: 30%;
             right: -50px;
         }
@@ -64,8 +64,8 @@
             margin: 0 auto;
             background-color: rgba(255, 255, 255, 0.97);
             padding: 2.5rem;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             position: relative;
@@ -85,8 +85,8 @@
             left: 50%;
             transform: translateX(-50%);
             width: 150px;
-            height: 4px;
-            background: linear-gradient(to right, var(--highlight), var(--secondary));
+            height: 3px;
+            background: linear-gradient(to right, var(--secondary), var(--highlight));
             border-radius: 2px;
         }
 
@@ -94,14 +94,14 @@
             width: 120px;
             height: auto;
             margin-bottom: 1rem;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
         }
 
         h1 {
             color: var(--primary);
             font-size: 2.2rem;
             margin-bottom: 0.5rem;
-            background: linear-gradient(to right, var(--primary), var(--quaternary));
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
@@ -138,82 +138,65 @@
         }
 
         label:hover {
-            color: var(--primary);
+            color: var(--secondary);
         }
 
         input, select, textarea {
             width: 100%;
             padding: 0.9rem 1rem;
-            border: 2px solid #E2E8F0;
-            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
             font-size: 1rem;
             transition: all 0.3s ease;
             background-color: #FAFBFF;
             color: var(--dark);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--secondary);
-            box-shadow: 0 0 0 4px rgba(0, 176, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
             background-color: white;
         }
 
         .employee-id {
-            background-color: #F0F4FF;
+            background-color: #F8F9FA;
             font-weight: bold;
             color: var(--primary);
-            border-left: 4px solid var(--primary);
+            border-left: 3px solid var(--primary);
         }
 
         .required::after {
             content: ' *';
-            color: var(--highlight);
+            color: var(--error);
             font-size: 1.2em;
         }
 
         .btn {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background: linear-gradient(45deg, var(--primary), var(--quaternary));
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
             color: white;
             font-size: 1.1rem;
             font-weight: bold;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 6px;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(98, 0, 234, 0.35);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.25);
             position: relative;
             overflow: hidden;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(98, 0, 234, 0.45);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(52, 152, 219, 0.35);
         }
 
         .btn:active {
             transform: translateY(0);
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--highlight), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-
-        .btn:hover::after {
-            opacity: 1;
         }
 
         .btn-container {
@@ -229,16 +212,16 @@
             margin-top: 2rem;
             margin-bottom: 1.5rem;
             padding-bottom: 0.8rem;
-            border-bottom: 2px solid #E6EFFD;
+            border-bottom: 1px solid #e9ecef;
             position: relative;
         }
 
         .section-title::before {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -1px;
             left: 0;
-            width: 80px;
+            width: 60px;
             height: 2px;
         }
 
@@ -247,11 +230,11 @@
         }
 
         .section-title:nth-of-type(2)::before {
-            background: linear-gradient(to right, var(--secondary), var(--accent));
+            background: linear-gradient(to right, var(--secondary), var(--highlight));
         }
 
         .section-title:nth-of-type(3)::before {
-            background: linear-gradient(to right, var(--accent), var(--tertiary));
+            background: linear-gradient(to right, var(--highlight), var(--accent));
         }
 
         .error-message {
@@ -305,35 +288,35 @@
             color: var(--primary);
             border-radius: 50%;
             margin-right: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         /* Form Sections with different background colors */
         .form-section {
             padding: 1.5rem;
-            border-radius: 16px;
+            border-radius: 8px;
             margin-bottom: 2rem;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.8);
             border: 1px solid rgba(226, 232, 240, 0.8);
             transition: all 0.3s ease;
         }
 
         .form-section:hover {
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            transform: translateY(-3px);
         }
 
         #personal-section {
-            border-top: 4px solid var(--primary);
+            border-top: 3px solid var(--secondary);
         }
 
         #professional-section {
-            border-top: 4px solid var(--secondary);
+            border-top: 3px solid var(--highlight);
         }
 
         #additional-section {
-            border-top: 4px solid var(--accent);
+            border-top: 3px solid var(--tertiary);
         }
 
         /* Animation for the form */
@@ -418,9 +401,9 @@
         }
 
         .step-active .step-number {
-            background-color: var(--primary);
+            background-color: var(--secondary);
             color: white;
-            border-color: var(--primary);
+            border-color: var(--secondary);
         }
 
         .step-label {
@@ -430,7 +413,7 @@
         }
 
         .step-active .step-label {
-            color: var(--primary);
+            color: var(--secondary);
             font-weight: bold;
         }
 
@@ -445,7 +428,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(52, 152, 219, 0.05) 1px, transparent 1px);
             background-size: 20px 20px;
             pointer-events: none;
             z-index: -1;
@@ -611,7 +594,6 @@
             
             <div class="btn-container">
                 <button type="submit" class="btn">Submit Information</button>
-
             </div>
         </form>
     </div>
